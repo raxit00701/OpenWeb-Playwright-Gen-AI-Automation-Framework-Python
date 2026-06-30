@@ -98,10 +98,10 @@ OpenWebUI_Playwright_python_web_auto/
 │   └── driver_factory.py          # Playwright context/page setup and teardown
 │
 ├── 📦 data/                       # Externalized test inputs (JSON)
-│   ├── chat_func.json             
-│   ├── folder_creation.json       
-│   ├── notes_creation.json        
-│   └── workspace.json             
+│   ├── chat_func.json
+│   ├── folder_creation.json
+│   ├── notes_creation.json
+│   └── workspace.json
 │
 ├── 🛠️ utils/                      # Shared helper functions
 │   ├── chat.py                    # Chat interaction utilities
