@@ -47,12 +47,12 @@
 ║                          📦 DATA/ (JSON)                              ║
 ║     Chat Functions · Folder Creation · Workspace · Notes Creation     ║
 ╠═════════════════════════════════════════════════════════════════════════╣
-║                 🛠️ conftest.py & config/settings.py                   ║
-║  ENV · BROWSER · HEADLESS · INCOGNITO · WORKERS · FIXTURES · DRIVERS  ║
-╠══════════════╦═══════════════════════════╦══════════════════════════╣
-║  📊 Allure   ║      🎬 Test Artifacts    ║    🌐 Environment         ║
-║   Reports    ║    Logs, Videos, Screens  ║    Test | Dev | Prod      ║
-╚══════════════╩═══════════════════════════╩══════════════════════════╝
+║                 🛠️ conftest.py & config/settings.py                     ║
+║  ENV · BROWSER · HEADLESS · INCOGNITO · WORKERS · FIXTURES · DRIVERS    ║ 
+╠══════════════╦═══════════════════════════╦═══════════════════════ ══════╣    
+║  📊 Allure   ║      🎬 Test Artifacts    ║    🌐 Environment           ║
+║   Reports    ║    Logs, Videos, Screens  ║    Test | Dev | Prod          ║
+╚══════════════╩═══════════════════════════╩══════════════════════════╝════╝
 
 ```
 
@@ -119,7 +119,7 @@ OpenWebUI_Playwright_python_web_auto/
 
 ```
 
----
+
 
 ## 🎯 Current Test Coverage
 
