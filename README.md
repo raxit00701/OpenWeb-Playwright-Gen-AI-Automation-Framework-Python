@@ -76,44 +76,46 @@
 
 The project has been heavily modularized to separate configuration, test logic, data, and reporting.
 
-```text
+
 OpenWebUI_Playwright_python_web_auto/
 │
-├── 🧪 tests/                    # Pytest specifications
-│   ├── test_folder_created.py   # Folder creation and management tests
-│   ├── test_notes_created.py    # Note taking and saving tests
-│   ├── test_verify_chat.py      # LLM chat interactions and streaming
-│   └── test_workspace_created.py# Workspace environment tests
+├── 🧪 tests/                      # Pytest specifications
+│   ├── test_folder_created.py     # Folder creation and management tests
+│   ├── test_notes_created.py      # Note taking and saving tests
+│   ├── test_verify_chat.py        # LLM chat interactions and streaming
+│   └── test_workspace_created.py  # Workspace environment tests
 │
-├── ⚙️ config/                   # Global configuration
-│   └── settings.py              # Dataclass handling multi-env parameters
+├── ⚙️ config/                     # Global configuration
+│   └── settings.py                # Dataclass handling multi-env parameters
 │
-├── 📡 APIs/                     # Programmatic API helpers
-│   └── login.py                 # REST-based auth token extraction
+├── 📡 APIs/                       # Programmatic API helpers
+│   └── login.py                   # REST-based auth token extraction
 │
-├── 🐳 db/                       # Database interaction layer
-│   └── db_client.py             # Docker-exec wrapper for internal SQLite DB
+├── 🐳 db/                         # Database interaction layer
+│   └── db_client.py               # Docker-exec wrapper for internal SQLite DB
 │
-├── 🚙 drivers/                  # Browser instantiation logic
-│   └── driver_factory.py        # Playwright context/page setup and teardown
+├── 🚙 drivers/                    # Browser instantiation logic
+│   └── driver_factory.py          # Playwright context/page setup and teardown
 │
-├── 📦 data/                     # Externalized test inputs (JSON)
-│   ├── chat_func.json
-│   ├── folder_creation.json
-│   ├── notes_creation.json
-│   └── workspace.json
+├── 📦 data/                       # Externalized test inputs (JSON)
+│   ├── chat_func.json             
+│   ├── folder_creation.json       
+│   ├── notes_creation.json        
+│   └── workspace.json             
 │
-├── 🛠️ utils/                    # Shared helper functions
-│   ├── chat.py                  # Chat interaction utilities
-│   ├── jsonhandler.py           # JSON parsing/writing
-│   ├── logger.py                # Per-session & per-test dedicated loggers
-│   └── retry.py                 # Custom explicit wait/retry logic
+├── 🛠️ utils/                      # Shared helper functions
+│   ├── chat.py                    # Chat interaction utilities
+│   ├── jsonhandler.py             # JSON parsing/writing
+│   ├── logger.py                  # Per-session & per-test dedicated loggers
+│   └── retry.py                   # Custom explicit wait/retry logic
 │
-├── 🎬 reports/ & logs/ & videos/# Automatically generated artifacts
-│   └── allure-results/          # Raw allure JSON/Attachment payloads
+├── 🎬 reports/                    # Automatically generated test reports
+│   └── allure-results/            # Raw allure JSON/Attachment payloads
+├── 📝 logs/                       # Auto-generated execution logs
+├── 🎥 videos/                     # Auto-recorded test failure videos
 │
-├── conftest.py                  # Pytest fixtures, Allure hooks, Page setup
-└── pytest.ini                   # Master framework configuration (markers, plugins)
+├── 📄 conftest.py                 # Pytest fixtures, Allure hooks, Page setup
+└── 🔧 pytest.ini                  # Master framework configuration (markers, plugins)
 
 ```
 
