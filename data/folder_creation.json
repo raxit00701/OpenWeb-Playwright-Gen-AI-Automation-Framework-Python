@@ -1,0 +1,6 @@
+{
+  "TC_001": {
+    "folder_name": "tester",
+    "system_prompt": "this is for testing"
+  }
+}

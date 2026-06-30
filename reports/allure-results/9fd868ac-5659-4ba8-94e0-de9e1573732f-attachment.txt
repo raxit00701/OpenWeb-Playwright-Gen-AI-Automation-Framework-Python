@@ -1,0 +1,6 @@
+[32mINFO    [0m conftest:conftest.py:75 Framework started  env=test  browser=chrome  headless=False  incognito=False
+[35mDEBUG   [0m asyncio:proactor_events.py:633 Using proactor: IocpProactor
+[35mDEBUG   [0m drivers.driver_factory:driver_factory.py:148 Launching chromium (channel=chrome)
+[32mINFO    [0m drivers.driver_factory:driver_factory.py:78 Browser ready: chrome | headless=False | incognito=False | env=test
+[35mDEBUG   [0m urllib3.connectionpool:connectionpool.py:241 Starting new HTTP connection (1): localhost:3000
+[35mDEBUG   [0m urllib3.connectionpool:connectionpool.py:544 http://localhost:3000 "POST /api/v1/auths/signin HTTP/1.1" 200 797

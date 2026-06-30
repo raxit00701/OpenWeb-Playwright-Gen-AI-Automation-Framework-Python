@@ -1,0 +1,12 @@
+{
+  "chat_verification_01": {
+    "input": {
+      "prompt": "5+5"
+    },
+    "expected": {
+      "response_contains": [
+        "10"
+      ]
+    }
+  }
+}
