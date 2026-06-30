@@ -76,7 +76,7 @@
 
 The project has been heavily modularized to separate configuration, test logic, data, and reporting.
 
-
+```text
 OpenWebUI_Playwright_python_web_auto/
 │
 ├── 🧪 tests/                      # Pytest specifications
