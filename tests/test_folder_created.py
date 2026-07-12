@@ -2,6 +2,7 @@ import pytest
 import json
 from db.db_client import DBClient
 from utils.jsonhandler import load_test_data
+from pages.home_screen import HomeScreen
 
 # -------------------------------
 # Test Data
@@ -10,13 +11,15 @@ folder_test_data = load_test_data("folder_creation.json")
 
 
 @pytest.mark.parametrize("test_case", folder_test_data.values(), ids=folder_test_data.keys())
+@pytest.mark.utility
 def test_verify_folder_created(authenticated_page, test_case):
 
     page = authenticated_page
+    home = HomeScreen(page)
     db = DBClient()
 
-    page.get_by_role("button", name="Open Sidebar", exact=True).click()
-    page.get_by_role("button", name="Folders").click()
+    home.open_sidebar()
+    home.open_folder()
     page.get_by_role("button").nth(4).click()
 
     page.get_by_role("textbox", name="Enter folder name").click()

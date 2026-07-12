@@ -1,0 +1,17 @@
+{
+  "stop_generation_1": {
+    "prompt": "Count from 1 to 50, writing each number on a new line.",
+    "wait_before_stop_ms": 2000,
+    "stability_wait_ms": 3000
+  },
+  "stop_generation_2": {
+    "prompt": "List the numbers from 1 to 50, one number per line.",
+    "wait_before_stop_ms": 2000,
+    "stability_wait_ms": 3000
+  },
+  "stop_generation_3": {
+    "prompt": "Write the alphabet from A to Z, 5 times, each alphabet on a new line.",
+    "wait_before_stop_ms": 2000,
+    "stability_wait_ms": 3000
+  }
+}

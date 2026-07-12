@@ -1,0 +1,226 @@
+name: OpenWebUI Automation
+
+on:
+  workflow_dispatch:
+    inputs:
+
+      execution_mode:
+        description: Execution Mode
+        required: true
+        default: serial
+        type: choice
+        options:
+          - serial
+          - parallel
+
+      browser:
+        description: Browser
+        required: true
+        default: chrome
+        type: choice
+        options:
+          - chrome
+          - chromium
+          - firefox
+          - webkit
+          - edge
+          - all
+
+      environment:
+        description: Environment
+        required: true
+        default: test
+        type: choice
+        options:
+          - test
+          - dev
+          - prod
+
+      group:
+        description: Test Group
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - chat
+          - utility
+
+      headless:
+        description: Headless Mode
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+      incognito:
+        description: Incognito Mode
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+      screenshot:
+        description: Screenshot
+        required: true
+        default: off
+        type: choice
+        options:
+          - on
+          - off
+          - only-on-failure
+
+      video:
+        description: Video Recording
+        required: true
+        default: off
+        type: choice
+        options:
+          - on
+          - off
+          - retain-on-failure
+
+      logs:
+        description: Upload Logs
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+jobs:
+
+  automation:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Playwright Browsers
+        run: |
+          python -m playwright install --with-deps
+
+      - name: Install Allure
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y default-jre
+          wget https://github.com/allure-framework/allure2/releases/latest/download/allure-2.34.1.tgz
+          tar -xzf allure-2.34.1.tgz
+          sudo mv allure-2.34.1 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+
+      - name: Configure pytest.ini
+        shell: bash
+        run: |
+
+          sed -i "s/^env *=.*/env = ${{ github.event.inputs.environment }}/" pytest.ini
+
+          sed -i "s/^headless *=.*/headless = ${{ github.event.inputs.headless }}/" pytest.ini
+
+          sed -i "s/^incognito *=.*/incognito = ${{ github.event.inputs.incognito }}/" pytest.ini
+
+          sed -i "s/^video *=.*/video = ${{ github.event.inputs.video }}/" pytest.ini
+
+          sed -i "s/^screenshot *=.*/screenshot = ${{ github.event.inputs.screenshot }}/" pytest.ini
+
+      - name: Run Tests
+        shell: bash
+        run: |
+
+          MARKER=""
+
+          if [ "${{ github.event.inputs.group }}" != "all" ]; then
+              MARKER="-m ${{ github.event.inputs.group }}"
+          fi
+
+          run_pytest () {
+
+            BROWSER=$1
+
+            sed -i "s/^browser *=.*/browser = ${BROWSER}/" pytest.ini
+
+            if [ "${{ github.event.inputs.execution_mode }}" = "parallel" ]; then
+
+                pytest -n auto $MARKER
+
+            else
+
+                pytest -n 0 $MARKER
+
+            fi
+
+          }
+
+          if [ "${{ github.event.inputs.browser }}" = "all" ]; then
+
+              run_pytest chrome
+              run_pytest chromium
+              run_pytest firefox
+              run_pytest webkit
+              run_pytest edge
+
+          else
+
+              run_pytest ${{ github.event.inputs.browser }}
+
+          fi
+
+      - name: Generate Allure Report
+        if: always()
+        run: |
+          allure generate reports/allure-results \
+            -o reports/allure-report \
+            --clean
+
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: reports/allure-report
+
+      - name: Upload Logs
+        if: always() && github.event.inputs.logs == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs
+          path: logs
+
+      - name: Upload Screenshots
+        if: always() && github.event.inputs.screenshot != 'off'
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: screenshots
+
+      - name: Upload Videos
+        if: always() && github.event.inputs.video != 'off'
+        uses: actions/upload-artifact@v4
+        with:
+          name: videos
+          path: videos
+
+      - name: Upload Allure Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: reports/allure-results

@@ -8,7 +8,7 @@ and exposes a single `Settings` object consumed by the rest of the framework.
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
 
@@ -66,9 +66,15 @@ class Settings:
 
     # --- paths ---
     reports_dir: str = "reports/allure-results"
+    allure_report_dir: str = "reports/allure-report"
     logs_dir: str = "logs"
     videos_dir: str = "videos"
     screenshots_dir: str = "screenshots"
+    downloads_dir: str = "downloads"
+
+    # --- framework metadata ---
+    framework: str = "Playwright Python"
+    project_name: str = "OpenWebUI Automation"
 
     def __post_init__(self) -> None:
         env_data = _ENV_CONFIG.get(self.env, _ENV_CONFIG["test"])
@@ -107,6 +113,35 @@ class Settings:
             kwargs["storage_state"] = None
 
         return kwargs
+
+    def environment_info(self, execution_group: str = "All") -> dict:
+        """
+        Returns metadata displayed in the Allure Environment tab.
+        """
+        return {
+            "Environment": self.env,
+            "Browser": self.browser,
+            "Execution Group": execution_group,
+            "Base URL": self.base_url,
+            "Headless": str(self.headless),
+            "Incognito": str(self.incognito),
+            "Video": self.video,
+            "Screenshot": self.screenshot,
+            "Timeout(ms)": str(self.timeout),
+            "Retries": str(self.retries),
+        }
+
+    def executor_info(self) -> dict:
+        """
+        Returns executor metadata for Allure.
+        """
+        return {
+            "name": self.framework,
+            "type": "Local",
+            "buildName": f"{self.env.upper()} Execution",
+            "buildOrder": 1,
+            "reportName": self.project_name,
+        }
 
 
 def build_settings(config) -> Settings:

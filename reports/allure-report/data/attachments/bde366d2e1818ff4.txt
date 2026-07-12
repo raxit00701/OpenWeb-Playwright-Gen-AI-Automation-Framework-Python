@@ -1,0 +1,123 @@
+
+==============================
+HALLUCINATION + DB VALIDATION TEST
+==============================
+
+Query 1
+Prompt: Who invented Python?
+--------------------------------------
+DATABASE VALIDATION
+--------------------------------------
+Assistant Role : assistant
+User Role      : user
+--------------------------------------
+Latency           : 12.56s
+Semantic Score    : 0.00
+Missing Keywords  : ['Guido van Rossum', '1991']
+Forbidden Found   : []
+Response:
+Exploring query_knowledge_files
+Hallucination Validation : FAIL
+
+Query 2
+Prompt: What is the capital of India?
+--------------------------------------
+DATABASE VALIDATION
+--------------------------------------
+Assistant Role : assistant
+User Role      : user
+--------------------------------------
+Latency           : 10.44s
+Semantic Score    : 0.00
+Missing Keywords  : ['New Delhi']
+Forbidden Found   : []
+Response:
+Exploring query_knowledge_bases
+Hallucination Validation : FAIL
+
+Query 3
+Prompt: What is 15 + 20?
+--------------------------------------
+DATABASE VALIDATION
+--------------------------------------
+Assistant Role : assistant
+User Role      : user
+DB Validation : PASS
+--------------------------------------
+Latency           : 8.38s
+Semantic Score    : 1.00
+Missing Keywords  : []
+Forbidden Found   : []
+Response:
+The sum of 15 and 20 is 35. Let me know if you need help with anything else!
+Hallucination Validation : PASS
+
+====================================
+FAILED VALIDATIONS
+====================================
+
+=========================================
+Query 1
+
+UI response and DB response do not match.
+
+UI Response:
+Exploring query_knowledge_files
+
+DB Response:
+null
+=========================================
+
+
+=========================================
+Query 1
+
+Prompt:
+Who invented Python?
+
+Response:
+Exploring query_knowledge_files
+
+Missing Keywords:
+['Guido van Rossum', '1991']
+
+Forbidden Keywords:
+[]
+
+Semantic Score:
+0.00
+=========================================
+
+
+=========================================
+Query 2
+
+UI response and DB response do not match.
+
+UI Response:
+Exploring query_knowledge_bases
+
+DB Response:
+I don't have access to general knowledge databases or real-time information through the provided tools. The available functions only allow me to search the user's personal knowledge bases, chat history, memories, and other user-specific data. For factual questions like this, I recommend consulting an authoritative source like a textbook, official government website, or trusted encyclopedia.
+=========================================
+
+
+=========================================
+Query 2
+
+Prompt:
+What is the capital of India?
+
+Response:
+Exploring query_knowledge_bases
+
+Missing Keywords:
+['New Delhi']
+
+Forbidden Keywords:
+[]
+
+Semantic Score:
+0.00
+=========================================
+

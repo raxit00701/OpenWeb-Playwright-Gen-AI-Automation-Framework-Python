@@ -1,0 +1,119 @@
+
+========================================
+      MULTI QUERY TEST STARTED
+========================================
+
+========== QUERY 1 ==========
+Prompt : Write a Python function that adds 2 and 10.
+Latency : 11.52 seconds
+Response:
+Thought for 5 seconds
+
+The Python function that adds 2 and 10 can be written as follows:
+
+python
+Collapse
+Run
+Save
+Copy
+1
+2
+⌄
+def add_two_and_ten():
+    return 2 + 10
+
+This function simply returns the sum of 2 and 10 when called.
+
+--------------------------------------
+DATABASE VALIDATION
+--------------------------------------
+Assistant Role : assistant
+User Role      : user
+DB Validation : PASS
+Validation Results:
+  ✅ Found: python
+  ✅ Found one of: ['add', 'adds', '+', '2', '10']
+✅ Query execution completed
+
+========== QUERY 2 ==========
+Prompt : What numbers did you insert exactly?
+Latency : 9.39 seconds
+Response:
+Thought for 4 seconds
+
+The function I provided adds the numbers 2 and 10 directly in the code:
+
+python
+Collapse
+Run
+Save
+Copy
+1
+2
+⌄
+def add_two_and_ten():
+    return 2 + 10
+
+The numbers inserted are 2 and 10, as specified in your original request.
+
+--------------------------------------
+DATABASE VALIDATION
+--------------------------------------
+Assistant Role : assistant
+User Role      : user
+DB Validation : PASS
+Validation Results:
+  ✅ Found: 2
+  ✅ Found: 10
+✅ Query execution completed
+
+========== QUERY 3 ==========
+Prompt : Are you sure?
+Latency : 11.43 seconds
+Response:
+Thought for 5 seconds
+
+Yes, I'm sure. The function explicitly adds 2 and 10 as written in the code:
+
+python
+Collapse
+Run
+Save
+Copy
+1
+2
+⌄
+def add_two_and_ten():
+    return 2 + 10
+
+The numbers 2 and 10 are hardcoded in the return statement. If you run this function, it will always return 12. Let me know if you'd like a version that accepts parameters instead!
+
+--------------------------------------
+DATABASE VALIDATION
+--------------------------------------
+Assistant Role : assistant
+User Role      : user
+DB Validation : PASS
+Validation Results:
+  ✅ Found one of: ['yes', 'sure']
+✅ Query execution completed
+
+========================================
+LATENCY REPORT
+========================================
+Query 1: 11.52 sec
+Query 2: 9.39 sec
+Query 3: 11.43 sec
+----------------------------------------
+Average : 10.78 sec
+Maximum : 11.52 sec
+Minimum : 9.39 sec
+
+========================================
+ASSERTION SUMMARY
+========================================
+✅ All UI, DB and content validations passed.
+
+========================================
+TEST PASSED
+========================================

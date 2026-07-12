@@ -1,0 +1,14 @@
+
+========== DATABASE VALUES ==========
+Knowledge Name        : this is testing
+Knowledge Description : this is testing
+Prompt Name           : Test1
+Prompt Content        : this is summary
+Prompt Tags           : []
+Skill Name            : skill name
+Skill Description     : this is skill description
+Skill Content         : this is skill instructions
+Tool Name             : tool name
+Tool Meta             : {"description": "tool description", "manifest": {}, "has_user_valves": false}
+=====================================
+

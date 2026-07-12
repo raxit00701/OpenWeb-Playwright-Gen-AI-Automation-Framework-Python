@@ -1,0 +1,57 @@
+{
+  "stream": true,
+  "model": "qwen/qwen3-14b",
+  "params": {},
+  "files": [
+    {
+      "type": "file",
+      "id": "b80bdce9-acea-4276-856a-49b87a8a4ff9",
+      "url": "b80bdce9-acea-4276-856a-49b87a8a4ff9",
+      "name": "context_testpdf.pdf",
+      "size": 2298,
+      "status": "uploaded",
+      "content_type": "application/pdf",
+      "file": {
+        "id": "b80bdce9-acea-4276-856a-49b87a8a4ff9",
+        "user_id": "e4c4fbb8-43e0-4bfd-b3b4-a7b1d379950f",
+        "filename": "context_testpdf.pdf",
+        "status": true,
+        "data": {
+          "status": "completed"
+        },
+        "meta": {
+          "name": "context_testpdf.pdf",
+          "content_type": "application/pdf",
+          "size": 2298,
+          "file_hash": "91c453bede24d62e8e7675d9ffb8227e93d0817e424fbd6a8e8c602f941fc8ea",
+          "data": {}
+        },
+        "path": "/app/backend/data/uploads/b80bdce9-acea-4276-856a-49b87a8a4ff9_context_testpdf.pdf"
+      },
+      "error": ""
+    }
+  ],
+  "tool_servers": [],
+  "background_tasks": {
+    "title_generation": true,
+    "tags_generation": true,
+    "follow_up_generation": true
+  },
+  "features": {
+    "voice": false,
+    "image_generation": false,
+    "code_interpreter": false,
+    "web_search": false,
+    "memory": true
+  },
+  "user_message": {
+    "role": "user",
+    "content": "tell me the company name and industry",
+    "files": [
+      {
+        "type": "file",
+        "id": "b80bdce9-acea-4276-856a-49b87a8a4ff9"
+      }
+    ]
+  }
+}

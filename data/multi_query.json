@@ -1,0 +1,36 @@
+{
+  "multi_query_01": {
+    "queries": [
+      {
+        "prompt": "Write a Python function that adds 2 and 10.",
+        "contains_all": [
+          "python"
+        ],
+        "contains_any": [
+          "add",
+          "adds",
+          "addition",
+          "+",
+          "2",
+          "10"
+        ]
+      },
+      {
+        "prompt": "What numbers did you insert exactly?",
+        "contains_all": [
+          "2",
+          "10"
+        ]
+      },
+      {
+        "prompt": "Are you sure?",
+        "contains_any": [
+          "yes",
+          "sure",
+          "correct",
+          "indeed"
+        ]
+      }
+    ]
+  }
+}

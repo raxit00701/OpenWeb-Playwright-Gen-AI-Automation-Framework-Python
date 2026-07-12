@@ -1,0 +1,17 @@
+
+=============================
+STOP GENERATION TEST
+=============================
+Stream active (Length: 41). Intersecting now...
+--------------------------------
+Stop Latency        : 20.76s
+Characters Generated: 41
+--------------------------------
+DATABASE VALIDATION
+--------------------------------
+Assistant Role : assistant
+User Role      : user
+Similarity Score : 1.000
+DB Validation : PASS
+--------------------------------
+PASS - Response stabilized after Stop.

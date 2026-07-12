@@ -1,0 +1,70 @@
+{
+  "queries": [
+    {
+      "prompt": "What is the company name?",
+      "contains_all": [
+        "Acme Retail Ltd"
+      ]
+    },
+    {
+      "prompt": "What industry does the company operate in?",
+      "contains_all": [
+        "Online Retail"
+      ]
+    },
+    {
+      "prompt": "What are the business hours?",
+      "contains_all": [
+        "Monday",
+        "Friday",
+        "9:00 AM",
+        "6:00 PM"
+      ]
+    },
+    {
+      "prompt": "What is the support email?",
+      "contains_all": [
+        "support@acmeretail.example"
+      ]
+    },
+    {
+      "prompt": "Within how many hours can an order be cancelled?",
+      "contains_all": [
+        "24"
+      ]
+    },
+    {
+      "prompt": "How long does standard delivery take?",
+      "contains_all": [
+        "3",
+        "5",
+        "business days"
+      ]
+    },
+    {
+      "prompt": "How many days do customers have to return unused items?",
+      "contains_all": [
+        "30"
+      ]
+    },
+    {
+      "prompt": "How long do refunds take?",
+      "contains_all": [
+        "5",
+        "business days"
+      ]
+    },
+    {
+      "prompt": "Who is the CEO?",
+      "contains_all": [
+        "don't have enough information"
+      ]
+    },
+    {
+      "prompt": "Where is the company headquarters located?",
+      "contains_all": [
+        "don't have enough information"
+      ]
+    }
+  ]
+}

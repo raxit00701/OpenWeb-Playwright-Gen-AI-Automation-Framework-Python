@@ -1,5 +1,6 @@
 import pytest
 import uuid
+from pages.home_screen import HomeScreen
 from db.db_client import DBClient
 from utils.jsonhandler import load_test_data
 import json
@@ -12,14 +13,16 @@ notes_test_data = load_test_data("notes_creation.json")
 
 
 @pytest.mark.parametrize("test_case", notes_test_data.values(), ids=notes_test_data.keys())
+@pytest.mark.utility
 def test_verify_notes_created(authenticated_page, test_case):
 
     page = authenticated_page
+    home = HomeScreen(page)
     db = DBClient()
 
     # Open Notes
-    page.get_by_role("button", name="Open Sidebar", exact=True).click()
-    page.get_by_role("link", name="Notes").click()
+    home.open_sidebar()
+    home.open_notes()
     page.get_by_role("button", name="New Note").click()
 
     # Editor

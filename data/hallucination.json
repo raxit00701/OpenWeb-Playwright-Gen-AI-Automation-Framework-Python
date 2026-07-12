@@ -1,0 +1,43 @@
+{
+  "hallucination_test": {
+    "queries": [
+      {
+        "prompt": "Who invented Python?",
+        "required_keywords": [
+          "Guido van Rossum",
+          "1991"
+        ],
+        "forbidden_keywords": [
+          "Dennis Ritchie",
+          "James Gosling"
+        ],
+        "semantic_reference": "Python was created by Guido van Rossum and first released in 1991.",
+        "threshold": 0.70
+      },
+      {
+        "prompt": "What is the capital of India?",
+        "required_keywords": [
+          "New Delhi"
+        ],
+        "forbidden_keywords": [
+          "Mumbai",
+          "Kolkata"
+        ],
+        "semantic_reference": "The capital of Australia is New Delhi.",
+        "threshold": 0.70
+      },
+      {
+        "prompt": "What is 15 + 20?",
+        "required_keywords": [
+          "35"
+        ],
+        "forbidden_keywords": [
+          "34",
+          "36"
+        ],
+        "semantic_reference": "15 + 20 equals 35.",
+        "threshold": 0.95
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "verify_workspace_creation": {
+    "knowledge": {
+      "name": "this is testing",
+      "description": "this is testing"
+    },
+    "prompt": {
+      "name": "Test1",
+      "tag": "tagtest",
+      "summary": "this is summary"
+    },
+    "skill": {
+      "name": "skill name",
+      "description": "this is skill description",
+      "instructions": "this is skill instructions"
+    },
+    "tool": {
+      "name": "tool name",
+      "description": "tool description"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+
+========== UI ==========
+Prompt   : 5+5
+Response : Thought for 1 seconds
+
+5 + 5 equals 10.
+✅ UI response matches expected output
+
+Chat ID: 39679267-f682-40f9-bbc7-1864af0c67e8
+
+========== DATABASE ==========
+
+Role    : user
+Content : "5+5"
+✅ User prompt found
+
+Role    : assistant
+Content : ""
+Assistant Response : 5 + 5 equals 10.
+✅ Assistant response found
+
+========== RESULT ==========
+✅ User prompt successfully stored in DB
+✅ Assistant response successfully stored in DB
+
+Chat count after : 122

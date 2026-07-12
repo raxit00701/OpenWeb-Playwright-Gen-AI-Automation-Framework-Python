@@ -1,0 +1,78 @@
+
+========== Note State ==========
+Step 0:
+<p>this is for testing</p>
+
+Step 1:
+<h1>this is for testing</h1><p><br class="ProseMirror-trailingBreak"></p>
+
+Step 02
+Selected: ''
+<h2>this is for testing</h2><p><br class="ProseMirror-trailingBreak"></p>
+------------------------------------------------------------
+
+========== Latest Note ==========
+{"content": {"md": "## this is for testing", "html": "<h2>this is for testing</h2><p></p>", "json": {"type": "doc", "content": [{"type": "heading", "attrs": {"level": 2}, "content": [{"type": "text", "text": "this is for testing"}]}, {"type": "paragraph"}]}}}
+Step 03
+Selected: ''
+<h3>this is for testing</h3><p><br class="ProseMirror-trailingBreak"></p>
+------------------------------------------------------------
+
+========== Latest Note ==========
+{"content": {"md": "### this is for testing", "html": "<h3>this is for testing</h3><p></p>", "json": {"type": "doc", "content": [{"type": "heading", "attrs": {"level": 3}, "content": [{"type": "text", "text": "this is for testing"}]}, {"type": "paragraph"}]}}}
+Step 04
+Selected: ''
+<ul><li class="pm-li--with-handle"><span class="pm-list-drag-handle ProseMirror-widget" title="Drag to move" role="button" aria-label="Drag list item" contenteditable="false">⋮⋮</span><p>this is for testing</p></li></ul><p><br class="ProseMirror-trailingBreak"></p>
+------------------------------------------------------------
+
+========== Latest Note ==========
+{"content": {"md": "*   this is for testing", "html": "<ul><li><p>this is for testing</p></li></ul><p></p>", "json": {"type": "doc", "content": [{"type": "bulletList", "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "this is for testing"}]}]}]}, {"type": "paragraph"}]}}}
+Step 05
+Selected: 'this is for testing'
+<ul><li class="pm-li--with-handle"><span class="pm-list-drag-handle ProseMirror-widget" title="Drag to move" role="button" aria-label="Drag list item" contenteditable="false">⋮⋮</span><p><span class="editor-selection">this is for testing</span></p></li></ul><p><br class="ProseMirror-trailingBreak"></p>
+------------------------------------------------------------
+
+========== Latest Note ==========
+{"content": {"md": "*   this is for testing", "html": "<ul><li><p>this is for testing</p></li></ul><p></p>", "json": {"type": "doc", "content": [{"type": "bulletList", "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "this is for testing"}]}]}]}, {"type": "paragraph"}]}}}
+Step 06
+Selected: ''
+<p>this is for testing</p><p><br class="ProseMirror-trailingBreak"></p>
+------------------------------------------------------------
+
+========== Latest Note ==========
+{"content": {"md": "this is for testing", "html": "<p>this is for testing</p><p></p>", "json": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "this is for testing"}]}, {"type": "paragraph"}]}}}
+Step 07
+Selected: ''
+<p><strong>this is for testing</strong></p><p><br class="ProseMirror-trailingBreak"></p>
+------------------------------------------------------------
+
+========== Latest Note ==========
+{"content": {"md": "**this is for testing**", "html": "<p><strong>this is for testing</strong></p><p></p>", "json": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "this is for testing"}]}, {"type": "paragraph"}]}}}
+Step 08
+Selected: ''
+<p><strong><em>this is for testing</em></strong></p><p><br class="ProseMirror-trailingBreak"></p>
+------------------------------------------------------------
+
+========== Latest Note ==========
+{"content": {"md": "**_this is for testing_**", "html": "<p><strong><em>this is for testing</em></strong></p><p></p>", "json": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}, {"type": "italic"}], "text": "this is for testing"}]}, {"type": "paragraph"}]}}}
+Step 09
+Selected: ''
+<p><strong><em><u>this is for testing</u></em></strong></p><p><br class="ProseMirror-trailingBreak"></p>
+------------------------------------------------------------
+
+========== Latest Note ==========
+{"content": {"md": "**_this is for testing_**", "html": "<p><strong><em><u>this is for testing</u></em></strong></p><p></p>", "json": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}, {"type": "italic"}, {"type": "underline"}], "text": "this is for testing"}]}, {"type": "paragraph"}]}}}
+Step 10
+Selected: ''
+<p><strong><em><s><u>this is for testing</u></s></em></strong></p><p><br class="ProseMirror-trailingBreak"></p>
+------------------------------------------------------------
+
+========== Latest Note ==========
+{"content": {"md": "**_~~this is for testing~~_**", "html": "<p><strong><em><s><u>this is for testing</u></s></em></strong></p><p></p>", "json": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}, {"type": "italic"}, {"type": "strike"}, {"type": "underline"}], "text": "this is for testing"}]}, {"type": "paragraph"}]}}}
+Step 11
+Selected: ''
+<pre><code><span class="hljs-keyword">this</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">for</span> testing</code></pre><p><br class="ProseMirror-trailingBreak"></p>
+------------------------------------------------------------
+
+========== Latest Note ==========
+{"content": {"md": "```\nthis is for testing\n```", "html": "<pre><code>this is for testing</code></pre><p></p>", "json": {"type": "doc", "content": [{"type": "codeBlock", "attrs": {"language": null}, "content": [{"type": "text", "text": "this is for testing"}]}, {"type": "paragraph"}]}}}

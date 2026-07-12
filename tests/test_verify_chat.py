@@ -1,3 +1,5 @@
+import json
+from pages.home_screen import HomeScreen
 import pytest
 
 from db.db_client import DBClient
@@ -17,9 +19,11 @@ chat_test_data = load_test_data("chat_func.json")
     chat_test_data.values(),
     ids=chat_test_data.keys()
 )
+@pytest.mark.chat
 def test_verify_chat_created(authenticated_page, test_case):
 
     page = authenticated_page
+    home = HomeScreen(page)
     db = DBClient()
 
     prompt = test_case["input"]["prompt"]
@@ -29,13 +33,9 @@ def test_verify_chat_created(authenticated_page, test_case):
     # Create New Chat
     # -------------------------------
 
-    page.get_by_role("button", name="New Chat").click()
-
-    chat_input = page.get_by_role("paragraph")
-    chat_input.click()
-    chat_input.fill(prompt)
-
-    page.locator("#send-message-button").click()
+    home.click_new_chat()
+    home.enter_prompt(prompt)
+    home.click_send()
 
     # -------------------------------
     # Wait for Assistant Response
@@ -67,12 +67,12 @@ def test_verify_chat_created(authenticated_page, test_case):
 
     rows = db.execute(
         """
-        SELECT id, content
+        SELECT role, content, output
         FROM chat_message
-        WHERE id LIKE ?
-        ORDER BY id
+        WHERE chat_id = ?
+        ORDER BY created_at
         """,
-        (f"{chat_id}-%",)
+        (chat_id,)
     )
 
     assert rows, "No chat messages found in the database."
@@ -82,20 +82,40 @@ def test_verify_chat_created(authenticated_page, test_case):
     user_found = False
     assistant_found = False
 
-    for message_id, content in rows:
-        print(f"\nID      : {message_id}")
+    for role, content, output in rows:
+
+        print(f"\nRole    : {role}")
         print(f"Content : {content}")
 
-        if prompt.lower() in content.lower():
-            user_found = True
-            print("✅ User prompt found")
+        if role == "user":
+            if prompt.lower() in (content or "").lower():
+                user_found = True
+                print("✅ User prompt found")
 
-        if all(
-                keyword.lower() in content.lower()
-                for keyword in expected_response
-        ):
-            assistant_found = True
-            print("✅ Assistant response found")
+        elif role == "assistant":
+
+            assistant_text = ""
+
+            if output:
+                try:
+                    output_json = json.loads(output)
+
+                    for item in output_json:
+                        if item.get("type") == "message":
+                            for message in item.get("content", []):
+                                assistant_text += message.get("text", "") + " "
+
+                except Exception as e:
+                    print(f"Unable to parse assistant output: {e}")
+
+            print(f"Assistant Response : {assistant_text.strip()}")
+
+            if all(
+                    keyword.lower() in assistant_text.lower()
+                    for keyword in expected_response
+            ):
+                assistant_found = True
+                print("✅ Assistant response found")
 
     # -------------------------------
     # Final Assertions
