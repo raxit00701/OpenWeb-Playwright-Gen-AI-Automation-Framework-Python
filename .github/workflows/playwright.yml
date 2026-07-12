@@ -116,6 +116,30 @@ jobs:
         run: |
           python -m playwright install --with-deps
 
+      ####################################################################
+      # OPTION 1
+      # START OPENWEBUI USING DOCKER COMPOSE
+      ####################################################################
+      - name: Start OpenWebUI
+        run: |
+          docker compose up -d
+
+      - name: Wait for OpenWebUI
+        run: |
+          echo "Waiting for OpenWebUI..."
+
+          timeout 180 bash -c '
+          until curl -sf http://localhost:3000 >/dev/null
+          do
+            sleep 5
+            echo "Still waiting..."
+          done
+          '
+
+          echo "OpenWebUI Started"
+
+      ####################################################################
+
       - name: Install Allure
         run: |
           sudo apt-get update
@@ -228,3 +252,11 @@ jobs:
           name: allure-results
           path: reports/allure-results
           if-no-files-found: ignore
+
+      ####################################################################
+      # ALWAYS SHUT DOWN CONTAINERS
+      ####################################################################
+      - name: Stop OpenWebUI
+        if: always()
+        run: |
+          docker compose down -v
