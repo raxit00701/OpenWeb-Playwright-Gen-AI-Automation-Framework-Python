@@ -101,11 +101,9 @@ jobs:
 
     steps:
 
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -121,24 +119,26 @@ jobs:
       - name: Install Allure
         run: |
           sudo apt-get update
-          sudo apt-get install -y default-jre
-          wget https://github.com/allure-framework/allure2/releases/latest/download/allure-2.34.1.tgz
-          tar -xzf allure-2.34.1.tgz
-          sudo mv allure-2.34.1 /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+          sudo apt-get install -y default-jre unzip
+
+          ALLURE_VERSION=2.44.0
+
+          wget https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz
+
+          tar -xzf allure-${ALLURE_VERSION}.tgz
+
+          sudo mv allure-${ALLURE_VERSION} /opt/allure
+
+          echo "/opt/allure/bin" >> $GITHUB_PATH
+
+          /opt/allure/bin/allure --version
 
       - name: Configure pytest.ini
-        shell: bash
         run: |
-
           sed -i "s/^env *=.*/env = ${{ github.event.inputs.environment }}/" pytest.ini
-
           sed -i "s/^headless *=.*/headless = ${{ github.event.inputs.headless }}/" pytest.ini
-
           sed -i "s/^incognito *=.*/incognito = ${{ github.event.inputs.incognito }}/" pytest.ini
-
           sed -i "s/^video *=.*/video = ${{ github.event.inputs.video }}/" pytest.ini
-
           sed -i "s/^screenshot *=.*/screenshot = ${{ github.event.inputs.screenshot }}/" pytest.ini
 
       - name: Run Tests
@@ -148,47 +148,46 @@ jobs:
           MARKER=""
 
           if [ "${{ github.event.inputs.group }}" != "all" ]; then
-              MARKER="-m ${{ github.event.inputs.group }}"
+            MARKER="-m ${{ github.event.inputs.group }}"
           fi
 
           run_pytest () {
 
-            BROWSER=$1
-
-            sed -i "s/^browser *=.*/browser = ${BROWSER}/" pytest.ini
+            sed -i "s/^browser *=.*/browser = $1/" pytest.ini
 
             if [ "${{ github.event.inputs.execution_mode }}" = "parallel" ]; then
-
-                pytest -n auto $MARKER
-
+              pytest -n auto $MARKER
             else
-
-                pytest -n 0 $MARKER
-
+              pytest -n 0 $MARKER
             fi
-
           }
 
           if [ "${{ github.event.inputs.browser }}" = "all" ]; then
-
-              run_pytest chrome
-              run_pytest chromium
-              run_pytest firefox
-              run_pytest webkit
-              run_pytest edge
-
+            run_pytest chrome
+            run_pytest chromium
+            run_pytest firefox
+            run_pytest webkit
+            run_pytest edge
           else
-
-              run_pytest ${{ github.event.inputs.browser }}
-
+            run_pytest ${{ github.event.inputs.browser }}
           fi
+
+      - name: Debug Folder Structure
+        if: always()
+        run: |
+          pwd
+          ls -R
 
       - name: Generate Allure Report
         if: always()
         run: |
-          allure generate reports/allure-results \
-            -o reports/allure-report \
-            --clean
+          if [ -d reports/allure-results ]; then
+            allure generate reports/allure-results \
+              -o reports/allure-report \
+              --clean
+          else
+            echo "reports/allure-results not found."
+          fi
 
       - name: Upload Allure Report
         if: always()
@@ -196,6 +195,7 @@ jobs:
         with:
           name: allure-report
           path: reports/allure-report
+          if-no-files-found: ignore
 
       - name: Upload Logs
         if: always() && github.event.inputs.logs == 'true'
@@ -203,6 +203,7 @@ jobs:
         with:
           name: logs
           path: logs
+          if-no-files-found: ignore
 
       - name: Upload Screenshots
         if: always() && github.event.inputs.screenshot != 'off'
@@ -210,6 +211,7 @@ jobs:
         with:
           name: screenshots
           path: screenshots
+          if-no-files-found: ignore
 
       - name: Upload Videos
         if: always() && github.event.inputs.video != 'off'
@@ -217,6 +219,7 @@ jobs:
         with:
           name: videos
           path: videos
+          if-no-files-found: ignore
 
       - name: Upload Allure Results
         if: always()
@@ -224,3 +227,4 @@ jobs:
         with:
           name: allure-results
           path: reports/allure-results
+          if-no-files-found: ignore
