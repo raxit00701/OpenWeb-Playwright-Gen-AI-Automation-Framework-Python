@@ -8,7 +8,7 @@ from pages.home_screen import HomeScreen
 # -------------------------------
 workspace_test_data = load_test_data("workspace.json")
 
-@pytest.mark.utility
+
 def verify_workspace_data(db, test_case):
     query = """
             SELECT
@@ -86,7 +86,7 @@ def verify_workspace_data(db, test_case):
     # meta is generally stored as JSON text
     assert test_case["tool"]["description"] in str(tool_meta)
 
-
+@pytest.mark.utility
 @pytest.mark.parametrize(
     "test_case",
     workspace_test_data.values(),
