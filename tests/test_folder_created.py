@@ -26,7 +26,7 @@ def test_verify_folder_created(authenticated_page, test_case):
     page.get_by_role("textbox", name="Enter folder name").fill(test_case["folder_name"])
 
     page.get_by_role("button", name="Upload", exact=True).click()
-    page.locator("input[type='file']").nth(0).set_input_files(r"D:\test.png")
+    page.locator("input[type='file']").nth(0).set_input_files(r"data/test.png")
 
     page.get_by_role("textbox", name="Write your model system").click()
     page.get_by_role("textbox", name="Write your model system").fill(test_case["system_prompt"])
