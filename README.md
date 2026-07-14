@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="OpenWebUI Automation Framework" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:03001C,30:2B0548,60:7B2FBE,100:00D4FF&height=230&section=header&text=OPENWEBUI%20AUTOMATION&fontSize=52&fontColor=ffffff&fontAlignY=38&fontAlign=50&desc=End-to-End%20and%20AI-Native%20Quality%20Assurance%20Framework&descAlignY=60&descSize=17&descColor=C8B8FF&animation=fadeIn" width="100%"/>
 
 <br/>
 
@@ -397,3 +397,5 @@ Made with care, Playwright, and a healthy respect for `page.wait_for_timeout()`.
 **⭐ Star this repo if it helped you — it genuinely helps others find it.**
 
 </div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:03001C,30:2B0548,60:7B2FBE,100:00D4FF&height=120&section=footer" width="100%"/>
