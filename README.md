@@ -328,7 +328,7 @@ allure open reports/allure-report
   consider committing a static screenshot into assets/ instead.
 -->
 
-![Allure Report Dashboard](PASTE_YOUR_ALLURE_REPORT_IMAGE_URL_HERE)
+![Allure Report Dashboard](https://drive.google.com/file/d/10O-haOrciADqkgllIlJd-BhRA07Z9Qje/view?usp=drive_link)
 
 ---
 
