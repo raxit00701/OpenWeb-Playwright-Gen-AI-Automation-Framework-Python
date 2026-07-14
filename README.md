@@ -428,9 +428,7 @@ This is currently a closed, internal framework. If you'd like to collaborate or 
 
 ### ⭐ Star History
 
-<a href="https://star-history.com/#YOUR_USERNAME/YOUR_REPO&Date">
-  <img src="https://api.star-history.com/svg?repos=YOUR_USERNAME/YOUR_REPO&type=Date" alt="Star History Chart" width="600"/>
-</a>
+[![Star History Chart](https://api.star-history.com/svg?repos=YOUR_USERNAME/YOUR_REPO&type=Date)](https://star-history.com/#YOUR_USERNAME/YOUR_REPO&Date)
 
 <br/><br/>
 
