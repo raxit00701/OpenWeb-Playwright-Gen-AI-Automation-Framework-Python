@@ -1,6 +1,4 @@
-Here is the **full MDX** with your requested changes preserved and applied in-place. I’ve kept the structure intact, updated the links for the Allure dashboard and system architecture, made the banner background more solid, fixed the bottom star section, and added the proprietary software license section. [mdxjs](https://mdxjs.com/docs/)
 
-```mdx
 <div align="center">
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:F2F2F2,50:FFDADA,100:FF9999&height=230&section=header&text=OPENWEBUI%20AUTOMATION&fontSize=52&fontColor=B71C1C&fontAlignY=38&fontAlign=50&desc=End-to-End%20and%20AI-Native%20Quality%20Assurance%20Framework&descAlignY=60&descSize=17&descColor=6B6B6B&animation=fadeIn" width="100%"/>
