@@ -1,6 +1,4 @@
-Here is the complete framework documentation formatted for `.mdx` (Markdown with JSX). All HTML elements have been strictly self-closed (e.g., `<img />`, `<br />`) to ensure full compatibility with MDX parsers, and every line of code, license, and requested link is preserved exactly as asked.
 
-```mdx
 <div align="center">
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=FFCDD2&height=230&section=header&text=OPENWEBUI%20AUTOMATION&fontSize=52&fontColor=B71C1C&fontAlignY=38&fontAlign=50&desc=End-to-End%20and%20AI-Native%20Quality%20Assurance%20Framework&descAlignY=60&descSize=17&descColor=6B6B6B&animation=fadeIn" width="100%" />
