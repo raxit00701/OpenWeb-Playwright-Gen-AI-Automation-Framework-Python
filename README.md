@@ -1,6 +1,9 @@
+Here is the **full MDX** with your requested changes preserved and applied in-place. I’ve kept the structure intact, updated the links for the Allure dashboard and system architecture, made the banner background more solid, fixed the bottom star section, and added the proprietary software license section. [mdxjs](https://mdxjs.com/docs/)
+
+```mdx
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:FFFFFF,50:FFDADA,100:FF9999&height=230&section=header&text=OPENWEBUI%20AUTOMATION&fontSize=52&fontColor=B71C1C&fontAlignY=38&fontAlign=50&desc=End-to-End%20and%20AI-Native%20Quality%20Assurance%20Framework&descAlignY=60&descSize=17&descColor=6B6B6B&animation=fadeIn" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:F2F2F2,50:FFDADA,100:FF9999&height=230&section=header&text=OPENWEBUI%20AUTOMATION&fontSize=52&fontColor=B71C1C&fontAlignY=38&fontAlign=50&desc=End-to-End%20and%20AI-Native%20Quality%20Assurance%20Framework&descAlignY=60&descSize=17&descColor=6B6B6B&animation=fadeIn" width="100%"/>
 
 <br/>
 
@@ -84,22 +87,22 @@ Every conversational flow is validated on three layers at once — the rendered 
 
 ```mermaid
 flowchart TD
-    A[Pytest Test Suite] --> B[Execution Layer]
-    B --> C[Playwright UI Automation]
-    B --> D[Headless API Calls]
-    C --> E[Open WebUI Application]
-    D --> E
-    E --> F[(Dockerized SQLite DB)]
-    A --> G[AI Evaluation Layer]
-    G --> G1[Semantic Similarity Scoring]
-    G --> G2[LLM as Judge]
-    G --> G3[Keyword Guardrails]
-    A --> H[Allure Reporting]
-    H --> H1[Logs]
-    H --> H2[Screenshots]
-    H --> H3[Videos]
-    F -.-> A
-    E -.-> A
+    A[Pytest Test Suite] --> B[Execution Layer]
+    B --> C[Playwright UI Automation]
+    B --> D[Headless API Calls]
+    C --> E[Open WebUI Application]
+    D --> E
+    E --> F[(Dockerized SQLite DB)]
+    A --> G[AI Evaluation Layer]
+    G --> G1[Semantic Similarity Scoring]
+    G --> G2[LLM as Judge]
+    G --> G3[Keyword Guardrails]
+    A --> H[Allure Reporting]
+    H --> H1[Logs]
+    H --> H2[Screenshots]
+    H --> H3[Videos]
+    F -.-> A
+    E -.-> A
 ```
 
 Tests are orchestrated by Pytest and drive the system through two parallel paths — full Playwright UI automation for realistic user journeys, and headless API calls (`APIs/`) for fast, high-volume conversational testing. Both paths converge on the same Open WebUI instance and its Dockerized SQLite backend, which the suite queries directly through `db/db_client.py` (via `docker exec` into the `open-webui` container) to confirm that whatever the user *sees* is exactly what got *persisted*.
@@ -128,57 +131,57 @@ Responses are additionally routed through an AI evaluation layer — `sentence-t
 
 ## 📂 Project Structure
 
-```
+```text
 OpenWebUI-Automation-Framework/
-├── APIs/                      # Headless API clients (login, chat, upload, polling)
-│   ├── chat_query.py
-│   ├── login.py
-│   ├── upload_doc.py
-│   └── wait_for_processing.py
+├── APIs/                      # Headless API clients (login, chat, upload, polling)
+│   ├── chat_query.py
+│   ├── login.py
+│   ├── upload_doc.py
+│   └── wait_for_processing.py
 ├── config/
-│   └── settings.py            # Centralized environment/config engine
-├── data/                      # JSON-driven test datasets
-│   ├── chat_func.json
-│   ├── chat_query.json
-│   ├── context.json
-│   ├── context_testpdf.pdf
-│   ├── folder_creation.json
-│   ├── hallucination.json
-│   ├── multi_query.json
-│   ├── notes_creation.json
-│   ├── stop_generation.json
-│   ├── toxic_query.json
-│   └── workspace.json
+│   └── settings.py            # Centralized environment/config engine
+├── data/                      # JSON-driven test datasets
+│   ├── chat_func.json
+│   ├── chat_query.json
+│   ├── context.json
+│   ├── context_testpdf.pdf
+│   ├── folder_creation.json
+│   ├── hallucination.json
+│   ├── multi_query.json
+│   ├── notes_creation.json
+│   ├── stop_generation.json
+│   ├── toxic_query.json
+│   └── workspace.json
 ├── db/
-│   └── db_client.py           # Dockerized SQLite client
+│   └── db_client.py           # Dockerized SQLite client
 ├── drivers/
-│   └── driver_factory.py      # Playwright browser/context lifecycle
-├── logs/                      # Session & per-test log output
+│   └── driver_factory.py      # Playwright browser/context lifecycle
+├── logs/                      # Session & per-test log output
 ├── pages/
-│   └── home_screen.py         # Page Object Model
+│   └── home_screen.py         # Page Object Model
 ├── reports/
-│   ├── allure-report/
-│   └── allure-results/
+│   ├── allure-report/
+│   └── allure-results/
 ├── tests/
-│   ├── test_folder_created.py
-│   ├── test_hallucination.py
-│   ├── test_multi_query.py
-│   ├── test_notes_created.py
-│   ├── test_stop_generation.py
-│   ├── test_toxic_query.py
-│   ├── test_verify_chat.py
-│   ├── test_verify_doc_context.py
-│   └── test_workspace_created.py
+│   ├── test_folder_created.py
+│   ├── test_hallucination.py
+│   ├── test_multi_query.py
+│   ├── test_notes_created.py
+│   ├── test_stop_generation.py
+│   ├── test_toxic_query.py
+│   ├── test_verify_chat.py
+│   ├── test_verify_doc_context.py
+│   └── test_workspace_created.py
 ├── utils/
-│   ├── chat.py                 # Streaming-aware Playwright chat helpers
-│   ├── evaluator.py            # Semantic similarity evaluator
-│   ├── jsonhandler.py          # Test-data loader
-│   ├── llm_judge.py            # LLM-as-judge evaluation utility
-│   ├── logger.py               # Dual-layer (session + per-test) logging
-│   └── retry.py                # Retry decorator / retry_action helper
-├── videos/                     # Retained failure recordings
-├── conftest.py                 # Fixtures, CLI options, hooks
-├── pytest.ini                  # Default execution configuration
+│   ├── chat.py                 # Streaming-aware Playwright chat helpers
+│   ├── evaluator.py            # Semantic similarity evaluator
+│   ├── jsonhandler.py          # Test-data loader
+│   ├── llm_judge.py            # LLM-as-judge evaluation utility
+│   ├── logger.py               # Dual-layer (session + per-test) logging
+│   └── retry.py                # Retry decorator / retry_action helper
+├── videos/                     # Retained failure recordings
+├── conftest.py                 # Fixtures, CLI options, hooks
+├── pytest.ini                  # Default execution configuration
 └── requirements.txt
 ```
 
@@ -199,8 +202,8 @@ git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
 cd YOUR_REPO
 
 python -m venv .venv
-.venv\Scripts\activate        # Windows
-# source .venv/bin/activate   # macOS / Linux
+.venv\Scripts\activate        # Windows
+# source .venv/bin/activate   # macOS / Linux
 
 pip install -r requirements.txt
 playwright install
@@ -318,17 +321,9 @@ allure open reports/allure-report
 
 ### Sample dashboard
 
-<!--
-  Replace the placeholder below with your Allure report screenshot.
-  Hosting on Google Drive? Use the direct-embed URL format so GitHub renders it inline:
-    1. Share the file as "Anyone with the link"
-    2. Copy the file ID from the share link (the string between /d/ and /view)
-    3. Use: https://drive.google.com/uc?export=view&id=YOUR_FILE_ID
-  Drive occasionally rate-limits hotlinked images — for a report that always loads,
-  consider committing a static screenshot into assets/ instead.
--->
+[Allure Dashboard](https://drive.google.com/file/d/10O-haOrciADqkgllIlJd-BhRA07Z9Qje/view?usp=drive_link)
 
-![Allure Report Dashboard](https://drive.google.com/file/d/10O-haOrciADqkgllIlJd-BhRA07Z9Qje/view?usp=drive_link)
+![Allure Report Dashboard](https://drive.google.com/uc?export=view&id=10O-haOrciADqkgllIlJd-BhRA07Z9Qje)
 
 ---
 
@@ -372,9 +367,58 @@ The model under test throughout this framework is **`qwen/qwen3-14b`**, chosen s
 
 ## 📜 License
 
-This project is **proprietary and confidential**. All rights reserved.
+## Proprietary Software License
 
-Copyright © 2026 **[Your Company / Name]**. No part of this repository — source code, test data, configuration, or documentation — may be copied, modified, distributed, or used without prior written permission from the copyright holder.
+Copyright (c) 2026 Raxit. All Rights Reserved.
+
+This repository and its contents — including but not limited to source code,
+test scripts, configuration files, test data, and documentation (collectively,
+the "Software") — are the confidential and proprietary property of
+Raxit and are protected by applicable copyright,
+trade secret, and intellectual property laws.
+
+1. RESTRICTIONS
+
+Except as expressly authorized in writing by the Owner, no person or
+entity may:
+
+a. Copy, reproduce, distribute, publish, or transmit the Software,
+in whole or in part, in any form or by any means;
+
+b. Modify, adapt, translate, reverse engineer, decompile, or
+disassemble the Software;
+
+c. Sell, lease, rent, sublicense, or otherwise transfer or make the
+Software available to any third party;
+
+d. Use the Software for any purpose other than one expressly
+permitted in writing by the Owner.
+
+2. NO WARRANTY
+
+THE SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+NON-INFRINGEMENT. IN NO EVENT SHALL THE OWNER BE LIABLE FOR ANY CLAIM,
+DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE OF THE SOFTWARE.
+
+3. CONFIDENTIALITY
+
+The Software may contain trade secrets and confidential information of
+the Owner. Any person granted access to the Software agrees to
+maintain its confidentiality and not disclose it to any third party
+without the Owner's prior written consent.
+
+4. TERMINATION
+
+Any unauthorized use, reproduction, or distribution of the Software
+immediately terminates any rights that may have been granted and may
+result in civil and/or criminal liability.
+
+5. CONTACT
+
+For licensing inquiries, permissions, or authorized use requests,
+contact: [raxit.sharma.qa@gmail.com](mailto:raxit.sharma.qa@gmail.com)
 
 See [`LICENSE`](LICENSE) for the full text.
 
@@ -398,4 +442,5 @@ Made with care, Playwright, and a healthy respect for `page.wait_for_timeout()`.
 
 </div>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:FFFFFF,50:FFDADA,100:FF9999&height=120&section=footer" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:F2F2F2,50:FFDADA,100:FF9999&height=140&section=footer" width="100%"/>
+```
