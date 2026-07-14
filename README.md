@@ -80,22 +80,22 @@ This repository contains a Playwright + Pytest automation framework purpose-buil
 
 ```mermaid
 flowchart TD
-    A[Pytest Test Suite] --> B[Execution Layer]
-    B --> C[Playwright UI Automation]
-    B --> D[Headless API Calls]
-    C --> E[Open WebUI Application]
-    D --> E
-    E --> F[(Dockerized SQLite DB)]
-    A --> G[AI Evaluation Layer]
-    G --> G1[Semantic Similarity Scoring]
-    G --> G2[LLM as Judge]
-    G --> G3[Keyword Guardrails]
-    A --> H[Allure Reporting]
-    H --> H1[Logs]
-    H --> H2[Screenshots]
-    H --> H3[Videos]
-    F -.-> A
-    E -.-> A
+    A[Pytest Test Suite] --> B[Execution Layer]
+    B --> C[Playwright UI Automation]
+    B --> D[Headless API Calls]
+    C --> E[Open WebUI Application]
+    D --> E
+    E --> F[(Dockerized SQLite DB)]
+    A --> G[AI Evaluation Layer]
+    G --> G1[Semantic Similarity Scoring]
+    G --> G2[LLM as Judge]
+    G --> G3[Keyword Guardrails]
+    A --> H[Allure Reporting]
+    H --> H1[Logs]
+    H --> H2[Screenshots]
+    H --> H3[Videos]
+    F -.-> A
+    E -.-> A
 ```
 
 Tests are orchestrated by Pytest and executed through two parallel paths: full Playwright UI automation for realistic user journeys, and headless API calls for faster conversational checks. Both paths converge on the same Open WebUI instance and its Dockerized SQLite backend, which the suite queries directly through `db/db_client.py` to verify that what the user sees is what is persisted.
@@ -184,13 +184,17 @@ OpenWebUI-Automation-Framework/
 
 Every run writes structured results to `reports/allure-results/`, including logs, screenshots, videos, and environment metadata.
 
-### Sample dashboard
+### Allure Dashboard
 
-[Allure Dashboard](https://drive.google.com/file/d/10O-haOrciADqkgllIlJd-BhRA07Z9Qje/view?usp=drive_link)
+<div align="center">
+  <img src="https://drive.google.com/uc?export=view&id=10O-haOrciADqkgllIlJd-BhRA07Z9Qje" alt="Allure Dashboard" width="100%" />
+</div>
 
-[System Architecture](https://drive.google.com/file/d/1mY5UKGmaKjOww83TgGZoNNfBIi-M49Vo/view?usp=drive_link)
+### System Architecture
 
-[![Star History Chart](https://api.star-history.com/svg?repos=YOUR_USERNAME/YOUR_REPO&type=Date)](https://star-history.com/#YOUR_USERNAME/YOUR_REPO&Date)
+<div align="center">
+  <img src="https://drive.google.com/uc?export=view&id=1mY5UKGmaKjOww83TgGZoNNfBIi-M49Vo" alt="System Architecture" width="100%" />
+</div>
 
 ---
 
@@ -266,8 +270,6 @@ This is currently a closed, internal framework.
 <div align="center">
 
 ### ⭐ Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=YOUR_USERNAME/YOUR_REPO&type=Date)](https://star-history.com/#YOUR_USERNAME/YOUR_REPO&Date)
 
 <br/><br/>
 
