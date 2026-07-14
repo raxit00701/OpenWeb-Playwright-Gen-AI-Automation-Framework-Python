@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:F2F2F2,50:FFDADA,100:FF9999&height=230&section=header&text=OPENWEBUI%20AUTOMATION&fontSize=52&fontColor=B71C1C&fontAlignY=38&fontAlign=50&desc=End-to-End%20and%20AI-Native%20Quality%20Assurance%20Framework&descAlignY=60&descSize=17&descColor=6B6B6B&animation=fadeIn" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:FFFFFF,50:FFDADA,100:FF9999&height=230&section=header&text=OPENWEBUI%20AUTOMATION&fontSize=52&fontColor=B71C1C&fontAlignY=38&fontAlign=50&desc=End-to-End%20and%20AI-Native%20Quality%20Assurance%20Framework&descAlignY=60&descSize=17&descColor=6B6B6B&animation=fadeIn" width="100%"/>
 
 <br/>
 
@@ -46,7 +46,7 @@ Built with Playwright · Pytest · Allure — validating UI behavior, database i
 
 This repository contains a Playwright + Pytest automation framework purpose-built for testing **[Open WebUI](https://github.com/open-webui/open-webui)** — a self-hosted, extensible interface for interacting with local and cloud LLMs. Beyond conventional UI and database assertions, the suite validates the product on three levels at once: rendered UI, persisted data, and semantic response quality.
 
-> **At a glance:** 9 data-driven test modules · 6 shared utility modules · 4 browser engines · hybrid UI + headless API execution · Dockerized SQLite verification on every run · Allure reporting with logs, screenshots, and video attachments.
+> **At a glance:** 9 data-driven test modules · 6 shared utility modules · 4 browser engines · hybrid UI + headless API execution · Dockerized SQLite verification on every run · Allure reporting with auto-attached logs, screenshots, and video attachments.
 
 ---
 
@@ -223,6 +223,7 @@ A Windows batch pipeline triggered after Jenkins checks out the repository drive
 
 ## 🗺️ Roadmap and Design Notes
 
+**Known limitations** (flagged for the backlog, not hidden):
 - `test_notes_created.py` currently logs the ProseMirror DOM state extensively but does not yet assert on it.
 - Several toolbar locators in the notes suite rely on Tailwind utility classes and structural pseudo-selectors, which are brittle against styling changes.
 - A few flows use fixed `wait_for_timeout()` buffers around autosave and creation; these can be replaced by `page.expect_response()`.
@@ -267,16 +268,6 @@ For licensing inquiries, permissions, or authorized use requests, contact: [raxi
 
 This is currently a closed, internal framework.
 
-<div align="center">
-
-### ⭐ Star History
-
-<br/><br/>
-
-Made with care, Playwright, and a healthy respect for `page.wait_for_timeout()`.
-
-**⭐ Star this repo if it helped you — it genuinely helps others find it.**
-
 </div>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:F2F2F2,50:FFDADA,100:FF9999&height=140&section=footer" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:FFFFFF,50:FFDADA,100:FF9999&height=120&section=footer" width="100%"/>
