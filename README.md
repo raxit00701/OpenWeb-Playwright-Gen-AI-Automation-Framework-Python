@@ -377,21 +377,16 @@ The model under test throughout this framework is **`qwen/qwen3-14b`**, chosen s
 
 This project is **proprietary and confidential**. All rights reserved.
 
-Copyright © 2026 **[Your Company / Name]**. No part of this repository — source code, test data, configuration, or documentation — may be copied, modified, distributed, or used without prior written permission from the copyright holder.
+Copyright © 2026 **Raxit**. No part of this repository — source code, test data, configuration, or documentation — may be copied, modified, distributed, or used without prior written permission from the copyright holder.
 
 See [`LICENSE`](LICENSE) for the full text.
 
 ### Contributing
 
-This is currently a closed, internal framework. If you'd like to collaborate or request access, reach out at **[your-email@example.com]**.
+This is currently a closed, internal framework. If you'd like to collaborate or request access, reach out at **raxit.sharma.qa@gmail.com**.
 
 <div align="center">
 
-### ⭐ Star History
-
-<a href="https://star-history.com/#YOUR_USERNAME/YOUR_REPO&Date">
-  <img src="https://api.star-history.com/svg?repos=YOUR_USERNAME/YOUR_REPO&type=Date" alt="Star History Chart" width="600"/>
-</a>
 
 <br/><br/>
 
