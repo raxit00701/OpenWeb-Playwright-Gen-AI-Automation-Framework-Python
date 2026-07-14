@@ -25,7 +25,7 @@ _ENV_CONFIG: dict[str, dict] = {
         "log_level": "DEBUG",
     },
     "dev": {
-        "base_url": "https://openwebui-dev.example.com",
+        "base_url": "http://localhost:3000/",
         "api_base_url": "https://api-dev.example.com",
         "db_host": "db-dev.example.com",
         "db_port": 5432,
@@ -33,7 +33,7 @@ _ENV_CONFIG: dict[str, dict] = {
         "log_level": "DEBUG",
     },
     "prod": {
-        "base_url": "https://openwebui.example.com",
+        "base_url": "http://localhost:3000/",
         "api_base_url": "https://api.example.com",
         "db_host": "db.example.com",
         "db_port": 5432,

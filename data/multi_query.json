@@ -2,33 +2,24 @@
   "multi_query_01": {
     "queries": [
       {
-        "prompt": "Write a Python function that adds 2 and 10.",
+        "prompt": "Write a Python function named greet that returns the string \"Hello\".",
         "contains_all": [
-          "python"
-        ],
-        "contains_any": [
-          "add",
-          "adds",
-          "addition",
-          "+",
-          "2",
-          "10"
+          "def",
+          "greet",
+          "Hello"
         ]
       },
       {
-        "prompt": "What numbers did you insert exactly?",
+        "prompt": "What is the function name?",
         "contains_all": [
-          "2",
-          "10"
+          "greet"
         ]
       },
       {
-        "prompt": "Are you sure?",
+        "prompt": "Does the function return Hello?",
         "contains_any": [
           "yes",
-          "sure",
-          "correct",
-          "indeed"
+          "Yes"
         ]
       }
     ]

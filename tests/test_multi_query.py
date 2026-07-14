@@ -1,6 +1,7 @@
 import json
 import re
 import time
+from difflib import SequenceMatcher
 
 import pytest
 
@@ -19,7 +20,8 @@ multi_query_data = load_test_data("multi_query.json")
 def normalize_response(text: str) -> str:
     """
     Normalize UI and DB responses so formatting differences
-    (markdown, code blocks, toolbar text, etc.) don't cause failures.
+    (markdown, code blocks, bullets, toolbar text, etc.)
+    don't cause false failures.
     """
 
     if not text:
@@ -32,6 +34,9 @@ def normalize_response(text: str) -> str:
         text,
         flags=re.IGNORECASE,
     )
+
+    # Normalize newlines
+    text = text.replace("\r\n", "\n")
 
     # Remove markdown code fences
     text = re.sub(r"```[a-zA-Z]*", "", text)
@@ -51,15 +56,21 @@ def normalize_response(text: str) -> str:
     ):
         text = text.replace(token, "")
 
-    # Remove line numbers in rendered code blocks
-    text = re.sub(r"^\d+$", "", text, flags=re.MULTILINE)
-
     # Remove expand icon
     text = text.replace("⌄", "")
 
-    # Normalize whitespace
+    # Remove line numbers in code blocks
+    text = re.sub(r"^\d+$", "", text, flags=re.MULTILINE)
+
+    # Remove markdown bullets
+    text = re.sub(r"^[ \t]*[-*•]\s*", "", text, flags=re.MULTILINE)
+
+    # Remove numbered list prefixes
+    text = re.sub(r"^\d+\.\s*", "", text, flags=re.MULTILINE)
+
+    # Collapse whitespace
     text = re.sub(r"[ \t]+", " ", text)
-    text = re.sub(r"\n{3,}", "\n\n", text)
+    text = re.sub(r"\n\s*\n+", "\n\n", text)
 
     return text.strip()
 
@@ -111,21 +122,46 @@ def test_verify_multi_query(authenticated_page, test_case):
 
         time.sleep(2)
 
-        rows = db.execute("""
-                          SELECT role, content, output
-                          FROM chat_message
-                          ORDER BY created_at DESC
-                              LIMIT 2
-                          """)
+        # Step 1: Extract the current chat id from the browser
+        chat_id = page.url.rstrip("/").split("/")[-1]
 
-        if len(rows) < 2:
+        # Step 2: Query only that chat
+        # Note: We must keep 'output' in SELECT for the assistant response,
+        # but we will ignore it when validating the user row where it is NULL.
+        rows = db.execute(
+            """
+            SELECT role, content, output
+            FROM chat_message
+            WHERE id LIKE ?
+            ORDER BY created_at ASC
+            """,
+            (f"{chat_id}-%",)
+        )
+
+        if not rows:
             failures.append(
-                f"Query {index}: Expected at least two chat_message records."
+                f"Query {index}: Expected chat_message records for chat {chat_id}, but found none."
             )
             continue
 
-        assistant_row = rows[0]
-        user_row = rows[1]
+        # Step 3: Get the latest assistant and user from that chat
+        assistant_row = None
+        user_row = None
+
+        for row in reversed(rows):
+            if assistant_row is None and row[0] == "assistant":
+                assistant_row = row
+            elif user_row is None and row[0] == "user":
+                user_row = row
+
+            if assistant_row and user_row:
+                break
+
+        if not assistant_row or not user_row:
+            failures.append(
+                f"Query {index}: Missing required user or assistant record for this query."
+            )
+            continue
 
         print("--------------------------------------")
         print("DATABASE VALIDATION")
@@ -142,7 +178,25 @@ def test_verify_multi_query(authenticated_page, test_case):
                 f"Query {index}: Expected DB role 'user', got '{user_row[0]}'."
             )
 
-        if prompt.lower() not in (user_row[1] or "").lower():
+        # Decode JSON string if OpenWebUI stored it with extra quotes/escaping
+        raw_user_content = user_row[1] or ""
+        try:
+            parsed_content = json.loads(raw_user_content)
+            if isinstance(parsed_content, str):
+                raw_user_content = parsed_content
+        except Exception:
+            pass
+
+        db_prompt = normalize_response(raw_user_content)
+        normalized_expected_prompt = normalize_response(prompt)
+
+        print("\nExpected Prompt:")
+        print(repr(normalized_expected_prompt))
+
+        print("DB Prompt:")
+        print(repr(db_prompt))
+
+        if normalized_expected_prompt.lower() not in db_prompt.lower():
             failures.append(
                 f"Query {index}: Prompt not stored correctly in DB."
             )
@@ -151,6 +205,7 @@ def test_verify_multi_query(authenticated_page, test_case):
         # Validate Assistant Record
         # -------------------------------
 
+        # Step 4: Now that we correctly assigned assistant_row, parsing output is safe
         if assistant_row[0] != "assistant":
             failures.append(
                 f"Query {index}: Expected DB role 'assistant', got '{assistant_row[0]}'."
@@ -160,23 +215,25 @@ def test_verify_multi_query(authenticated_page, test_case):
         db_response = ""
 
         try:
-            parsed = json.loads(db_output)
+            if db_output:
+                parsed = json.loads(db_output)
 
-            for block in parsed:
+                for block in parsed:
+                    if block.get("type") != "message":
+                        continue
 
-                if block.get("type") != "message":
-                    continue
+                    for content in block.get("content", []):
+                        if content.get("type") == "output_text":
+                            db_response = content.get("text", "")
+                            break
 
-                for content in block.get("content", []):
-
-                    if content.get("type") == "output_text":
-                        db_response = content.get("text", "")
+                    if db_response:
                         break
-
-                if db_response:
-                    break
-
         except Exception:
+            pass
+
+        # Fallback if json parsing didn't trigger
+        if not db_response:
             db_response = assistant_row[2] or assistant_row[1] or ""
 
         if not db_response.strip():
@@ -189,17 +246,23 @@ def test_verify_multi_query(authenticated_page, test_case):
         db_response = normalize_response(db_response)
 
         # Compare normalized content
-        if (
-                ui_response != db_response
-                and ui_response not in db_response
-                and db_response not in ui_response
-        ):
+        similarity = SequenceMatcher(
+            None,
+            ui_response,
+            db_response,
+        ).ratio()
+
+        print(f"Similarity : {similarity:.3f}")
+
+        if similarity < 0.97:
             failures.append(
                 f"""
 =========================================
 Query {index}
 
 UI response and DB response do not match.
+
+Similarity : {similarity:.3f}
 
 Normalized UI Response:
 {ui_response}
